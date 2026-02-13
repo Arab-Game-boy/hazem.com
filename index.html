@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>حاذم أبوحميدة - مستر علوم وفيزياء</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ===== الوضع النهاري ===== */
+        body.day-mode {
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        body.day-mode .top-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        body.day-mode .nav-links a {
+            color: #1e293b;
+        }
+
+        body.day-mode .nav-links .login-btn {
+            background: transparent;
+            border: 2px solid #e67e22;
+        }
+
+        body.day-mode .nav-links .signup-btn {
+            background: #e67e22;
+            color: white;
+        }
+
+        body.day-mode .nav-links .books-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        body.day-mode .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        body.day-mode .welcome-text {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        body.day-mode .contact-section {
+            background: white;
+            border: 2px solid #e67e22;
+        }
+
+        body.day-mode .contact-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+        }
+
+        body.day-mode footer {
+            background: #1e293b;
+            color: white;
+        }
+
+        /* ===== الوضع الليلي ===== */
+        body.night-mode {
+            background: #0f172a;
+            color: #e2e8f0;
+        }
+
+        body.night-mode .top-nav {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+
+        body.night-mode .nav-links a {
+            color: #e2e8f0;
+        }
+
+        body.night-mode .nav-links .login-btn {
+            border: 2px solid #f59e0b;
+        }
+
+        body.night-mode .nav-links .signup-btn {
+            background: #f59e0b;
+            color: #0f172a;
+        }
+
+        body.night-mode .nav-links .books-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        body.night-mode .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+        }
+
+        body.night-mode .welcome-text {
+            background: #1e293b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        body.night-mode .contact-section {
+            background: #1e293b;
+            border: 2px solid #f59e0b;
+        }
+
+        body.night-mode .contact-item {
+            background: #0f172a;
+            border: 1px solid #334155;
+        }
+
+        body.night-mode footer {
+            background: #020617;
+            color: white;
+        }
+
+        /* ===== القائمة العلوية ===== */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-profile-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #e67e22;
+            transition: all 0.3s ease;
+        }
+
+        .nav-profile-img:hover {
+            transform: scale(1.1);
+            border-color: white;
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            border: none;
+            background: #e67e22;
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(180deg) scale(1.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 40px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-links .login-btn {
+            background: transparent;
+            border: 2px solid;
+        }
+
+        .nav-links .signup-btn {
+            background: #e67e22;
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .nav-links .books-btn {
+            background: #3b82f6;
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .nav-links .books-btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* ===== رسالة "جار العمل عليه" ===== */
+        .coming-soon-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: #e67e22;
+            color: white;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            box-shadow: 0 20px 40px rgba(230,126,34,0.4);
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 3px solid white;
+            text-align: center;
+            min-width: 280px;
+        }
+
+        .coming-soon-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .coming-soon-message i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* ===== زر العودة للأعلى ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: #e67e22;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(230,126,34,0.3);
+            border: 2px solid white;
+        }
+
+        .scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+            bottom: 30px;
+        }
+
+        /* ===== الهيرو ===== */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 100px 15px 30px;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
+            margin-bottom: 20px;
+            font-weight: 600;
+            opacity: 0.95;
+        }
+
+        .hero .profile-img-large {
+            width: min(200px, 40vw);
+            height: min(200px, 40vw);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e67e22;
+            margin: 20px auto 10px;
+            display: block;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .hero .profile-img-large:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        /* ===== النص الترحيبي الجديد (بديل البطاقات) ===== */
+        .welcome-text {
+            max-width: 800px;
+            margin: 30px auto 40px;
+            padding: 40px 30px;
+            border-radius: 50px;
+            text-align: center;
+        }
+
+        .welcome-text p {
+            font-size: 1.4rem;
+            line-height: 2;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .welcome-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .welcome-text i {
+            color: #e67e22;
+            margin: 0 10px;
+            font-size: 1.8rem;
+            vertical-align: middle;
+        }
+
+        .welcome-text .highlight {
+            color: #e67e22;
+            font-weight: 800;
+            font-size: 1.6rem;
+        }
+
+        /* ===== قسم التواصل المحسن ===== */
+        .contact-section {
+            max-width: 900px;
+            margin: 20px auto 40px;
+            padding: 35px 25px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .contact-section h3 {
+            font-size: clamp(1.8rem, 5vw, 2.2rem);
+            font-weight: 800;
+            margin-bottom: 30px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .contact-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #e67e22;
+            border-radius: 2px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-bottom: 0;
+        }
+
+        .contact-item {
+            padding: 20px 10px;
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(230,126,34,0.1), rgba(245,158,11,0.1));
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .contact-item:hover::before {
+            transform: translateY(0);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(230,126,34,0.2);
+        }
+
+        .contact-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: rotate(360deg) scale(1.1);
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        .phone-icon { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .whatsapp-icon { background: linear-gradient(135deg, #25D366, #128C7E); color: white; }
+        .facebook-icon { background: linear-gradient(135deg, #1877f2, #0d5ab9); color: white; }
+        .messenger-icon { background: linear-gradient(135deg, #0084ff, #0063cc); color: white; }
+        .telegram-icon { background: linear-gradient(135deg, #26A5E4, #1a7fb3); color: white; }
+
+        .contact-item a {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: block;
+            margin: 8px 0 4px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item span {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            display: block;
+            position: relative;
+            z-index: 1;
+            font-family: monospace;
+            direction: ltr;
+        }
+
+        /* ===== نوافذ التسجيل المصغرة ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 380px;
+            border-radius: 30px;
+            padding: 25px 20px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-header i {
+            font-size: 2.5rem;
+            color: #e67e22;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            margin-bottom: 8px;
+        }
+
+        .modal-content h3 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .close-modal {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #f1f5f9;
+        }
+
+        .close-modal:hover {
+            color: #ef4444;
+            background: #fee2e2;
+            transform: rotate(90deg);
+        }
+
+        .user-type {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            background: white;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .user-type-btn i {
+            font-size: 1rem;
+        }
+
+        .user-type-btn.active {
+            background: #e67e22;
+            color: white;
+            border-color: #e67e22;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group label i {
+            color: #e67e22;
+            margin-left: 5px;
+            font-size: 0.9rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            right: 12px;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 35px 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #e67e22;
+            box-shadow: 0 0 0 3px rgba(230,126,34,0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #e67e22;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(230,126,34,0.3);
+        }
+
+        /* ===== فوتر ===== */
+        footer {
+            padding: 25px 0;
+            text-align: center;
+            font-size: 1rem;
+            margin-top: auto;
+        }
+
+        /* ===== تحسينات للشاشات الصغيرة ===== */
+        @media (max-width: 700px) {
+            .contact-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .welcome-text p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .contact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .welcome-text {
+                padding: 30px 20px;
+            }
+            
+            .welcome-text p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .profile-section {
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                justify-content: center;
+            }
+            
+            .nav-links a {
+                flex: 1;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+            }
+            
+            .nav-links a {
+                width: 100%;
+            }
+        }
+
+        /* تحسين اللمس للجوال */
+        @media (hover: none) and (pointer: coarse) {
+            .nav-links a,
+            .contact-item,
+            .theme-toggle,
+            .close-modal,
+            .user-type-btn,
+            .submit-btn,
+            .scroll-top {
+                cursor: pointer;
+                -webkit-tap-highlight-color: rgba(230,126,34,0.2);
+            }
+
+            .nav-links a:active,
+            .contact-item:active,
+            .theme-toggle:active,
+            .submit-btn:active {
+                transform: scale(0.97) !important;
+                opacity: 0.9;
+            }
+        }
+    </style>
+</head>
+<body class="day-mode" id="body">
+    <!-- رسالة "جار العمل عليه" -->
+    <div class="coming-soon-message" id="comingSoonMessage">
+        <i class="fas fa-tools"></i>
+        جار العمل على هذا القسم
+        <i class="fas fa-smile-wink" style="margin-top: 10px; font-size: 2rem;"></i>
+    </div>
+
+    <!-- القائمة العلوية -->
+    <div class="top-nav" id="navbar">
+        <div class="nav-container">
+            <div class="profile-section">
+                <img src="صورة_المستر.jpg" alt="حاذم أبوحميدة" class="nav-profile-img" id="navProfileImg">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-sun" id="themeIcon"></i>
+                </button>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="books-btn" id="booksBtn"><i class="fas fa-book-open"></i> تنزيل كتب</a>
+                <a href="#" class="login-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> دخول</a>
+                <a href="#" class="signup-btn" id="signupBtn"><i class="fas fa-user-plus"></i> حساب</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- زر العودة للأعلى -->
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- نوافذ التسجيل -->
+    <div class="modal-overlay" id="signupModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeSignupModal">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-user-plus"></i>
+                <h3>حساب جديد</h3>
+            </div>
+            <div class="user-type">
+                <button class="user-type-btn active" id="modalParentBtn"><i class="fas fa-user-friends"></i> ولي أمر</button>
+                <button class="user-type-btn" id="modalStudentBtn"><i class="fas fa-user-graduate"></i> طالب</button>
+            </div>
+            <form id="signupForm">
+                <div class="form-group"><label><i class="fas fa-user"></i> الاسم</label><div class="input-wrapper"><i class="fas fa-pen"></i><input type="text" placeholder="الاسم الكامل" required></div></div>
+                <div class="form-group"><label><i class="fas fa-phone"></i> الهاتف</label><div class="input-wrapper"><i class="fas fa-mobile-alt"></i><input type="tel" placeholder="رقم الهاتف" required></div></div>
+                <div class="form-group"><label><i class="fas fa-envelope"></i> البريد</label><div class="input-wrapper"><i class="fas fa-at"></i><input type="email" placeholder="example@email.com" required></div></div>
+                <div class="form-group"><label><i class="fas fa-lock"></i> كلمة السر</label><div class="input-wrapper"><i class="fas fa-key"></i><input type="password" placeholder="******" required></div></div>
+                <div class="form-group"><label><i class="fas fa-check-circle"></i> التأكيد</label><div class="input-wrapper"><i class="fas fa-check-double"></i><input type="password" placeholder="تأكيد كلمة السر" required></div></div>
+                <button type="submit" class="submit-btn"><i class="fas fa-check-circle"></i> إنشاء</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeLoginModal">&times;</span>
+            <div class="modal-header"><i class="fas fa-sign-in-alt"></i><h3>تسجيل دخول</h3></div>
+            <form id="loginForm">
+                <div class="form-group"><label><i class="fas fa-envelope"></i> البريد</label><div class="input-wrapper"><i class="fas fa-at"></i><input type="email" placeholder="example@email.com" required></div></div>
+                <div class="form-group"><label><i class="fas fa-lock"></i> كلمة السر</label><div class="input-wrapper"><i class="fas fa-key"></i><input type="password" placeholder="******" required></div></div>
+                <button type="submit" class="submit-btn"><i class="fas fa-sign-in-alt"></i> دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- الهيرو -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>حاذم أبوحميدة</h1>
+            <p>مستر علوم وفيزياء</p>
+            <img src="صورة_المستر.jpg" alt="حاذم أبوحميدة" class="profile-img-large" id="heroProfileImg">
+        </div>
+    </section>
+
+    <!-- النص الترحيبي الجديد (بديل البطاقات) -->
+    <div class="welcome-text">
+        <p>
+            <i class="fas fa-quote-right"></i>
+            أهلاً وسهلاً بكم في صفحتي التعليمية
+            <i class="fas fa-quote-left"></i>
+        </p>
+        <p>
+            هنا تجدون <span class="highlight">العلوم</span> بأسلوب مبسط، 
+            و <span class="highlight">الفيزياء</span> ممتعة وسهلة
+        </p>
+        <p>
+            مع <span class="highlight">متابعة مستمرة</span> لضمان التفوق والنجاح
+        </p>
+        <p>
+            <i class="fas fa-star" style="color: #f59e0b;"></i>
+            <i class="fas fa-star" style="color: #f59e0b;"></i>
+            <i class="fas fa-star" style="color: #f59e0b;"></i>
+        </p>
+    </div>
+
+    <!-- قسم التواصل المحسن -->
+    <div class="contact-section" id="contact">
+        <h3>تواصل مع المستر حاذم</h3>
+        
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-icon phone-icon"><i class="fas fa-phone-volume"></i></div>
+                <a href="tel:+201281557053">اتصال</a>
+                <span dir="ltr">+20 12 81557053</span>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon whatsapp-icon"><i class="fab fa-whatsapp"></i></div>
+                <a href="https://wa.me/201281557053">واتساب</a>
+                <span dir="ltr">+20 12 81557053</span>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon facebook-icon"><i class="fab fa-facebook-f"></i></div>
+                <a href="https://www.facebook.com/photo/?fbid=2406093433156382&set=a.121482744950807" target="_blank">فيسبوك</a>
+                <span>الصفحة الرسمية</span>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon messenger-icon"><i class="fab fa-facebook-messenger"></i></div>
+                <a href="https://m.me/2406093433156382" target="_blank">ماسنجر</a>
+                <span>محادثة فورية</span>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-icon telegram-icon"><i class="fab fa-telegram-plane"></i></div>
+                <a href="https://t.me/+201281557053">تليجرام</a>
+                <span dir="ltr">@Hazem_teacher</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 حاذم أبوحميدة - جميع الحقوق محفوظة</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const body = document.getElementById('body');
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const scrollTop = document.getElementById('scrollTop');
+        const comingSoonMessage = document.getElementById('comingSoonMessage');
+
+        const signupModal = document.getElementById('signupModal');
+        const loginModal = document.getElementById('loginModal');
+        const signupBtn = document.getElementById('signupBtn');
+        const loginBtn = document.getElementById('loginBtn');
+        const booksBtn = document.getElementById('booksBtn');
+        const closeSignup = document.getElementById('closeSignupModal');
+        const closeLogin = document.getElementById('closeLoginModal');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) scrollTop.classList.add('show');
+            else scrollTop.classList.remove('show');
+        });
+
+        scrollTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        themeToggle.addEventListener('click', () => {
+            if (body.classList.contains('day-mode')) {
+                body.classList.remove('day-mode');
+                body.classList.add('night-mode');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                body.classList.remove('night-mode');
+                body.classList.add('day-mode');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        booksBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            comingSoonMessage.classList.add('show');
+            setTimeout(() => {
+                comingSoonMessage.classList.remove('show');
+            }, 3000);
+        });
+
+        signupBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupModal.classList.add('active');
+        });
+
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('active');
+        });
+
+        function closeModals() {
+            signupModal.classList.remove('active');
+            loginModal.classList.remove('active');
+        }
+
+        closeSignup.addEventListener('click', closeModals);
+        closeLogin.addEventListener('click', closeModals);
+
+        signupModal.addEventListener('click', (e) => {
+            if (e.target === signupModal) closeModals();
+        });
+        
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) closeModals();
+        });
+
+        const modalParentBtn = document.getElementById('modalParentBtn');
+        const modalStudentBtn = document.getElementById('modalStudentBtn');
+
+        modalParentBtn.addEventListener('click', () => {
+            modalParentBtn.classList.add('active');
+            modalStudentBtn.classList.remove('active');
+        });
+
+        modalStudentBtn.addEventListener('click', () => {
+            modalStudentBtn.classList.add('active');
+            modalParentBtn.classList.remove('active');
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('✅ تم إنشاء الحساب');
+            closeModals();
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('✅ تم تسجيل الدخول');
+            closeModals();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeModals();
+                comingSoonMessage.classList.remove('show');
+            }
+        });
+
+        comingSoonMessage.addEventListener('click', () => {
+            comingSoonMessage.classList.remove('show');
+        });
+
+        const profileImages = document.querySelectorAll('#navProfileImg, #heroProfileImg');
+        profileImages.forEach(img => {
+            img.onerror = function() {
+                this.src = 'https://via.placeholder.com/200x200/e67e22/ffffff?text=حاذم';
+            };
+        });
+    </script>
+</body>
+</html>
